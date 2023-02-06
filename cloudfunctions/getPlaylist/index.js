@@ -8,16 +8,34 @@ const playlistCollection = db.collection('playlist')
 const axios = require('axios')
 const URL = 'http://43.140.248.221:3000/style/playlist?tagId=1000'
 
+const MAX_LIMIT = 100
+
 // 云函数入口函数
 exports.main = async (event, context) => {
+  const countResult = await playlistCollection.count()
+  const total = countResult.total
+  const batchTimes = Math.ceil(total / MAX_LIMIT)
+  const tasks = []
+  for (let i = 0; i < batchTimes; i++) {
+    const promise = playlistCollection.skip(i * MAX_LIMIT).limit(MAX_LIMIT).get()
+    tasks.push(promise)
+  }
+  let list = { data: [] }
+  if (tasks.length > 0) {
+    list = (await Promise.all(tasks)).reduce((acc, cur) => {
+      return {
+        data: acc.data.concat(cur.data)
+      }
+    })
+  }
+
   const { status, statusText, data } = await axios.get(URL)
   if (status !== 200) {
     console.log(statusText)
     return
   }
   const { playlist, page } = data.data
-  const { data: list } = await playlistCollection.get()
-  const newData = deduplication(playlist, list)
+  const newData = deduplication(playlist, list.data)
 
   if (newData.length) {
     await playlistCollection.add({
