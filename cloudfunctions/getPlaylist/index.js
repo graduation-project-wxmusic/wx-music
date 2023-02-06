@@ -6,7 +6,8 @@ const db = cloud.database()
 const playlistCollection = db.collection('playlist')
 
 const axios = require('axios')
-const URL = 'http://43.140.248.221:3000/style/playlist?tagId=1000'
+const URL = 'http://43.140.248.221:3000/style/playlist?tagId='
+let tagId = 1000
 
 const MAX_LIMIT = 100
 
@@ -29,7 +30,7 @@ exports.main = async (event, context) => {
     })
   }
 
-  const { status, statusText, data } = await axios.get(URL)
+  const { status, statusText, data } = await axios.get(URL + tagId++)
   if (status !== 200) {
     console.log(statusText)
     return
