@@ -51,6 +51,10 @@
   transition: transform 0.5s ease;
 }
 
+.play.player-disc::after {
+  transform: rotate(0deg);
+}
+
 .player-img {
   width: 368rpx;
   height: 368rpx;
@@ -75,11 +79,34 @@
   color: #fefefe;
 }
 
-.icon-shangyishoushangyige, .icon-xiayigexiayishou {
+.icon-shangyishoushangyige,
+.icon-xiayigexiayishou {
   font-size: 80rpx;
 }
 
-.icon-bofang, .icon-zanting {
+.icon-bofang,
+.icon-zanting {
   font-size: 120rpx;
   margin: 0 50rpx;
+}
+
+.rotation {
+  animation: rotation 12s linear infinite;
+  -moz-animation: rotation 12s linear infinite;
+  -webkit-animation: rotation 12s linear infinite;
+  -o-animation: rotation 12s linear infinite;
+}
+
+.rotation-paused {
+  animation-play-state: paused;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }

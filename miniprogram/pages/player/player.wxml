@@ -4,13 +4,13 @@
 
 <view class="player-info">
   <!-- 封面信息 -->
-  <view class="player-disc">
-    <image class="player-img" src="{{picUrl}}"></image>
+  <view class="player-disc {{isPlaying?'play': ''}}">
+    <image class="player-img rotation {{isPlaying?'':'rotation-paused'}}" src="{{picUrl}}"></image>
   </view>
   <!-- 控制面板 -->
   <view class="control">
-    <text class="iconfont icon-shangyishoushangyige"></text>
-    <text class="iconfont icon-zanting"></text>
-    <text class="iconfont icon-xiayigexiayishou"></text>
+    <text class="iconfont icon-shangyishoushangyige" bind:tap="onPrev"></text>
+    <text class="iconfont {{isPlaying?'icon-zanting':'icon-bofang'}}" bind:tap="togglePlaying"></text>
+    <text class="iconfont icon-xiayigexiayishou" bind:tap="onNext"></text>
   </view>
 </view>
