@@ -7,4 +7,10 @@
   <view class="player-disc">
     <image class="player-img" src="{{picUrl}}"></image>
   </view>
+  <!-- 控制面板 -->
+  <view class="control">
+    <text class="iconfont icon-shangyishoushangyige"></text>
+    <text class="iconfont icon-zanting"></text>
+    <text class="iconfont icon-xiayigexiayishou"></text>
+  </view>
 </view>
