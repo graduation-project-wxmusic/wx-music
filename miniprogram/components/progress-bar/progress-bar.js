@@ -73,6 +73,23 @@ Component({
         ['showTime.totalTime']: `${durationFmt.min}:${durationFmt.sec}`
       })
     },
+    onChange(event) {
+      if (event.detail.source == 'touch') {
+        this.data.progress = event.detail.x / (movableAreaWidth - movableViewWidth) * 100
+        this.data.movableDis = event.detail.x
+        isMoving = true
+      }
+    },
+    onTouchEnd() {
+      const currentTimeFmt = this._dateFormat(Math.floor(backgroundAudioManager.currentTime))
+      this.setData({
+        progress: this.data.progress,
+        movableDis: this.data.movableDis,
+        ['showTime.currentTime']: currentTimeFmt.min + ':' + currentTimeFmt.sec
+      })
+      backgroundAudioManager.seek(duration * this.data.progress / 100)
+      isMoving = false
+    },
     _dateFormat(sec) {
       const min = Math.floor(sec / 60)
       sec = Math.floor(sec % 60)
