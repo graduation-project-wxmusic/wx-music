@@ -65,6 +65,9 @@ Component({
           }
         }
       })
+      backgroundAudioManager.onEnded(() => {
+        this.triggerEvent('musicEnd')
+      })
     },
     _setTime() {
       duration = backgroundAudioManager.duration
