@@ -4,6 +4,7 @@ let musiclist = []
 let nowPlayingIndex = 0
 // 微信小程序全局唯一的背景音乐管理器
 const backgroundAudioManager = wx.getBackgroundAudioManager()
+const app = getApp()
 
 Page({
 
@@ -84,6 +85,7 @@ Page({
       picUrl: music.al.picUrl,
       isPlaying: false,
     })
+    app.setPlayMusicId(musicId)
 
     wx.showLoading({
       title: '歌曲加载中',
