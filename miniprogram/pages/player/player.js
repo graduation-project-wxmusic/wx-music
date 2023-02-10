@@ -142,6 +142,10 @@ Page({
     })
   },
 
+  timeUpdate(event) {
+    this.selectComponent('.lyric').update(event.detail.currentTime)
+  },
+
   onPrev() {
     nowPlayingIndex--
     if (nowPlayingIndex < 0) {
