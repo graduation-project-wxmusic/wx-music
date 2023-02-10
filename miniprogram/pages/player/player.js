@@ -13,6 +13,7 @@ Page({
   data: {
     picUrl: '',
     isPlaying: false,
+    isLyricShow: false, //表示当前歌词是否显示
   },
 
   /**
@@ -101,9 +102,25 @@ Page({
       backgroundAudioManager.coverImgUrl = music.al.picUrl
       backgroundAudioManager.singer = music.ar[0].name
       backgroundAudioManager.epname = music.al.name
-
       this.setData({
         isPlaying: true
+      })
+    })
+
+    wx.cloud.callFunction({
+      name: 'music',
+      data: {
+        musicId,
+        $url: 'lyric',
+      }
+    }).then((res) => {
+      let lyric = '暂无歌词'
+      const lrc = res.result.lrc
+      if (lrc) {
+        lyric = lrc.lyric
+      }
+      this.setData({
+        lyric
       })
     })
   },
@@ -116,6 +133,12 @@ Page({
     }
     this.setData({
       isPlaying: !this.data.isPlaying
+    })
+  },
+
+  onChangeLyricShow() {
+    this.setData({
+      isLyricShow: !this.data.isLyricShow
     })
   },
 
