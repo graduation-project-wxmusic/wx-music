@@ -40,6 +40,13 @@ Component({
       })
     },
     _bindBGMEvent() {
+      backgroundAudioManager.onPlay(() => {
+        isMoving = false
+        this.triggerEvent('musicPlay')
+      })
+      backgroundAudioManager.onPause(() => {
+        this.triggerEvent('musicPause')
+      })
       backgroundAudioManager.onCanplay(() => {
         if (typeof backgroundAudioManager.duration != 'undefined') {
           this._setTime()

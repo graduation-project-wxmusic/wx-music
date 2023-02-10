@@ -148,6 +148,18 @@ Page({
     this.selectComponent('.lyric').update(event.detail.currentTime)
   },
 
+  onPlay() {
+    this.setData({
+      isPlaying: true,
+    })
+  },
+
+  onPause() {
+    this.setData({
+      isPlaying: false,
+    })
+  },
+
   onPrev() {
     nowPlayingIndex--
     if (nowPlayingIndex < 0) {
