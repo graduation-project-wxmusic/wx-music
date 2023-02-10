@@ -15,6 +15,8 @@ Page({
     picUrl: '',
     isPlaying: false,
     isLyricShow: false, //表示当前歌词是否显示
+    lyric: '',
+    isSame: false, // 表示是否为同一首歌
   },
 
   /**
@@ -76,7 +78,18 @@ Page({
   },
 
   _loadMusicDetail(musicId) {
-    backgroundAudioManager.stop()
+    if (musicId == app.getPlayMusicId()) {
+      this.setData({
+        isSame: true
+      })
+    } else {
+      this.setData({
+        isSame: false
+      })
+    }
+    if (!this.data.isSame) {
+      backgroundAudioManager.stop()
+    }
     const music = musiclist[nowPlayingIndex]
     wx.setNavigationBarTitle({
       title: music.name,
@@ -99,14 +112,16 @@ Page({
     }).then((res) => {
       wx.hideLoading()
       const result = res.result
-      backgroundAudioManager.src = result.data[0].url
-      backgroundAudioManager.title = music.name
-      backgroundAudioManager.coverImgUrl = music.al.picUrl
-      backgroundAudioManager.singer = music.ar[0].name
-      backgroundAudioManager.epname = music.al.name
-      this.setData({
-        isPlaying: true
-      })
+      if (!this.data.isSame) {
+        backgroundAudioManager.src = result.data[0].url
+        backgroundAudioManager.title = music.name
+        backgroundAudioManager.coverImgUrl = music.al.picUrl
+        backgroundAudioManager.singer = music.ar[0].name
+        backgroundAudioManager.epname = music.al.name
+        this.setData({
+          isPlaying: true
+        })
+      }
     })
 
     wx.cloud.callFunction({
