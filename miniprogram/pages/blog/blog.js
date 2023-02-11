@@ -62,5 +62,14 @@ Page({
    */
   onShareAppMessage() {
 
+  },
+
+  // 发布功能
+  onPublish() {
+    
+  },
+
+  onSearch() {
+
   }
 })

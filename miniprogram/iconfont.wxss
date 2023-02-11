@@ -30,3 +30,11 @@
 .icon-bofang:before {
   content: "\e696";
 }
+
+.icon-fabu:before {
+  content: "\e625";
+}
+
+.icon-sousuo:before {
+  content: "\e633";
+}
