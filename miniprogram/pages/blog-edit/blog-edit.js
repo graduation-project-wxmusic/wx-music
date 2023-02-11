@@ -1,7 +1,11 @@
 // pages/blog-edit/blog-edit.js
 
+const db = wx.cloud.database()
+
 const MAX_WORDS_NUM = 140
 const MAX_IMG_NUM = 9
+let content = ''
+let userInfo = {}
 
 Page({
 
@@ -19,7 +23,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    console.log(options);
+    userInfo = options
   },
 
   /**
@@ -135,7 +139,21 @@ Page({
   send() {
     // 1、图片 上传到 云存储得到fileID
     // 2、数据 上传到 云数据库
-    
+    if (content.trim() === '') {
+      wx.showModal({
+        title: '请输入内容',
+        content: '',
+      })
+      return
+    }
+
+    wx.showLoading({
+      title: '发布中',
+      mask: true,
+    })
+
+    let promiseArr = []
+    let fileIds = []
     // 图片上传
     for (let i = 0; i < this.data.images.length; i++) {
       let p = new Promise((resolve, reject) => {
@@ -146,7 +164,7 @@ Page({
           cloudPath: 'blog/' + Date.now() + '-' + Math.random() * 1000000 + suffix,
           filePath: item,
           success: (res) => {
-            console.log(res)
+            fileIds = fileIds.concat(res.fileID)
             resolve()
           },
           fail: (err) => {
@@ -155,6 +173,30 @@ Page({
           }
         })
       })
+      promiseArr.push(p)
     }
+    // 存入到云数据库
+    Promise.all(promiseArr).then((res) => {
+      db.collection('blog').add({
+        data: {
+          ...userInfo,
+          content,
+          img: fileIds,
+          createTime: db.serverDate(), // 服务端的时间
+        }
+      }).then((res) => {
+        wx.showToast({
+          title: '发布成功',
+        })
+        // 返回blog页面
+        wx.navigateBack()
+      })
+    }).catch((err) => {
+      wx.showToast({
+        title: '发布失败',
+      })
+    }).finally(() => {
+      wx.hideLoading()
+    })
   },
 })
