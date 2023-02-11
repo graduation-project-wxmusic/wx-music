@@ -131,4 +131,30 @@ Page({
       current: event.target.dataset.imgsrc,
     })
   },
+
+  send() {
+    // 1、图片 上传到 云存储得到fileID
+    // 2、数据 上传到 云数据库
+    
+    // 图片上传
+    for (let i = 0; i < this.data.images.length; i++) {
+      let p = new Promise((resolve, reject) => {
+        let item = this.data.images[i]
+        // 文件扩展名
+        let suffix = /\.\w+$/.exec(item)[0]
+        wx.cloud.uploadFile({
+          cloudPath: 'blog/' + Date.now() + '-' + Math.random() * 1000000 + suffix,
+          filePath: item,
+          success: (res) => {
+            console.log(res)
+            resolve()
+          },
+          fail: (err) => {
+            console.error(err)
+            reject()
+          }
+        })
+      })
+    }
+  },
 })
