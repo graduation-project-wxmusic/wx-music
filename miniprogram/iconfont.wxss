@@ -42,3 +42,7 @@
 .icon-shanchu:before {
   content: "\e68c";
 }
+
+.icon-jiahao:before {
+  content: "\eaf3";
+}

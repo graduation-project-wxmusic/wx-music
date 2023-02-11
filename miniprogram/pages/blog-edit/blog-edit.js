@@ -1,11 +1,15 @@
 // pages/blog-edit/blog-edit.js
+
+const MAX_WORDS_NUM = 140
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    wordsNum: 0,
+    footerBottom: 0,
   },
 
   /**
@@ -62,5 +66,29 @@ Page({
    */
   onShareAppMessage() {
 
-  }
+  },
+
+  onInput(event) {
+    let wordsNum = event.detail.value.length
+    if (wordsNum >= MAX_WORDS_NUM) {
+      wordsNum = `最大字数为${MAX_WORDS_NUM}`
+    }
+    this.setData({
+      wordsNum
+    })
+    content = event.detail.value
+  },
+
+  onFocus(event) {
+    // 模拟器获取的键盘高度为0
+    this.setData({
+      footerBottom: event.detail.height,
+    })
+  },
+
+  onBlur() {
+    this.setData({
+      footerBottom: 0,
+    })
+  },
 })
