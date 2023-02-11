@@ -38,3 +38,7 @@
 .icon-sousuo:before {
   content: "\e633";
 }
+
+.icon-shanchu:before {
+  content: "\e68c";
+}
