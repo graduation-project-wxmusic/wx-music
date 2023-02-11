@@ -124,4 +124,11 @@ Page({
       })
     }
   },
+
+  onPreviewImage(event) {
+    wx.previewImage({
+      urls: this.data.images,
+      current: event.target.dataset.imgsrc,
+    })
+  },
 })

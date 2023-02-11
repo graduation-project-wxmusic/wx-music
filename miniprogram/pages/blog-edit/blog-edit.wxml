@@ -5,7 +5,7 @@
     <!-- 显示图片 -->
     <block wx:for="{{images}}" wx:key="*this">
       <view class="image-wrap">
-        <image class="image" src="{{item}}" mode="aspectFill"></image>
+        <image class="image" src="{{item}}" mode="aspectFill" bind:tap="onPreviewImage" data-imgsrc="{{item}}"></image>
         <i class="iconfont icon-shanchu" bind:tap="onDelImage" data-index="{{index}}"></i>
       </view>
     </block>
