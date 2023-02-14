@@ -48,14 +48,17 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh() {
-
+    this.setData({
+      blogList: []
+    })
+    this._loadBlogList()
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom() {
-
+    this._loadBlogList(this.data.blogList.length)
   },
 
   /**
@@ -102,6 +105,9 @@ Page({
   },
 
   _loadBlogList(start = 0) {
+    wx.showLoading({
+      title: '加载中',
+    })
     wx.cloud.callFunction({
       name: 'blog',
       data: {
@@ -113,6 +119,9 @@ Page({
       this.setData({
         blogList: this.data.blogList.concat(res.result)
       })
+    }).finally(() => {
+      wx.hideLoading()
+      wx.stopPullDownRefresh()
     })
   },
 
