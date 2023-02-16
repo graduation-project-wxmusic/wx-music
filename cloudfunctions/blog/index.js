@@ -14,21 +14,20 @@ exports.main = async (event, context) => {
   })
 
   app.router('list', async (ctx, next) => {
-    // const keyword = event.keyword
-    // let w = {}
-    // if (keyword.trim() != '') {
-    //   w = {
-    //     content: new db.RegExp({
-    //       regexp: keyword,
-    //       options: 'i'
-    //     })
-    //   }
-    // }
-    let blogList = await blogCollection.skip(event.start).limit(event.count)
+    const keyword = event.keyword
+    let w = {}
+    if (keyword && keyword.trim() != '') {
+      w = {
+        content: new db.RegExp({
+          regexp: keyword,
+          options: 'i'
+        })
+      }
+    }
+    let blogList = await blogCollection.where(w).skip(event.start).limit(event.count)
       .orderBy('createTime', 'desc').get().then((res) => {
         return res.data
       })
-      console.log(blogList);
     ctx.body = blogList
   })
 

@@ -1,4 +1,7 @@
 // pages/blog/blog.js
+
+let keyword = ''
+
 Page({
 
   /**
@@ -113,6 +116,7 @@ Page({
       data: {
         start,
         count: 10,
+        keyword,
         $url: 'list',
       }
     }).then((res) => {
@@ -125,8 +129,12 @@ Page({
     })
   },
 
-  onSearch() {
-
+  onSearch(event) {
+    this.setData({
+      blogList: []
+    })
+    keyword = event.detail.keyword
+    this._loadBlogList(0)
   },
 
   goComment(event) {
