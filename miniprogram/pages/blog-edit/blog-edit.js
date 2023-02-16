@@ -190,6 +190,9 @@ Page({
         })
         // 返回blog页面
         wx.navigateBack()
+        const pages = getCurrentPages()
+        const prevPage = pages[pages.length - 2]
+        prevPage.onPullDownRefresh()
       })
     }).catch((err) => {
       wx.showToast({
