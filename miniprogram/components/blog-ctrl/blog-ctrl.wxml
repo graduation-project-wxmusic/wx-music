@@ -1,0 +1,13 @@
+<!--components/blog-ctrl/blog-ctrl.wxml-->
+<view class="ctrl">
+	<view class="ctrl-item">
+		<i class="iconfont icon-pinglun icon"></i>
+		<text class="item">评论</text>
+	</view>
+	<view class="ctrl-item share">
+    <i class="iconfont icon-fenxiang icon"></i>
+    <text class="item">分享</text>
+	</view>
+</view>
+
+<x-login modalShow="{{loginShow}}" />

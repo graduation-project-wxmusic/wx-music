@@ -46,3 +46,11 @@
 .icon-jiahao:before {
   content: "\eaf3";
 }
+
+.icon-pinglun:before {
+  content: "\e61e";
+}
+
+.icon-fenxiang:before {
+  content: "\e608";
+}
