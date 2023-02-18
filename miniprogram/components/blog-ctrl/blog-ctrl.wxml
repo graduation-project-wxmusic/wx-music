@@ -1,6 +1,6 @@
 <!--components/blog-ctrl/blog-ctrl.wxml-->
 <view class="ctrl">
-	<view class="ctrl-item">
+	<view class="ctrl-item" bind:tap="onComment">
 		<i class="iconfont icon-pinglun icon"></i>
 		<text class="item">评论</text>
 	</view>
@@ -10,4 +10,11 @@
 	</view>
 </view>
 
-<x-login modalShow="{{loginShow}}" />
+<x-login modalShow="{{loginShow}}" bind:loginsuccess="onLoginsuccess" bind:loginfail="onLoginfail" />
+
+<x-bottom-modal modalShow="{{modalShow}}">
+	<view slot="modal-content">
+		<textarea bindinput="onInput" name="content" class="comment-content" placeholder="写评论" value="{{content}}" fixed="true"></textarea>
+		<button class="send" form-type="submit" bind:tap="onSend">发送</button>
+	</view>
+</x-bottom-modal>
