@@ -20,7 +20,7 @@
 
 .ctrl-item .icon {
   margin-right: 12rpx;
-  margin-top: 15rpx;
+  margin-top: 10rpx;
   font-size: 32rpx;
 }
 

@@ -1,6 +1,6 @@
 <!--components/blog-ctrl/blog-ctrl.wxml-->
 <view class="ctrl">
-	<view class="ctrl-item" bind:tap="onComment">
+	<view class="ctrl-item" bind:tap="subscribeMsg">
 		<i class="iconfont icon-pinglun icon"></i>
 		<text class="item">评论</text>
 	</view>

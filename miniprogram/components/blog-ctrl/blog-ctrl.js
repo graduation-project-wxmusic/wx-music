@@ -99,12 +99,43 @@ Component({
           avatarUrl: userInfo.avatarUrl
         }
       }).then((res) => {
+        // 推送订阅消息
+        wx.cloud.callFunction({
+          name: 'subscribeMsg',
+          data: {
+            content,
+            blogId: this.properties.blogId
+          }
+        }).then((res) => {
+          wx.showToast({
+            title: '评论成功',
+          })
+        })
         this.setData({
           modalShow: false,
           content: '',
         })
+        // 父元素刷新评论页面
+        this.triggerEvent('refreshCommentList')
       }).finally(() => {
         wx.hideLoading()
+      })
+    },
+    // 调起客户端小程序订阅消息界面
+    subscribeMsg() {
+      const tmplId = 'ezTl6CbGyqDRnS1fsfvnPefBHja2NGNnSavKhZIYc08'
+      wx.requestSubscribeMessage({
+        tmplIds: [tmplId],
+        success: (res) => {
+          if (res[tmplId] === 'accept') {
+            this.onComment()
+          } else {
+            wx.showToast({
+              icon: 'none',
+              title: '订阅失败，无法评论',
+            })
+          }
+        }
       })
     },
   }
