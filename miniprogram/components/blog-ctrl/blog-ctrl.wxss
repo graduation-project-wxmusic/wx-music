@@ -49,6 +49,8 @@
   color: rgba(40, 47, 60, 0.8);
   padding: 0;
   height: 100%;
+  width: 100% !important;
+  font-weight: normal;
   border: none;
   display: flex;
   flex-direction: row;
