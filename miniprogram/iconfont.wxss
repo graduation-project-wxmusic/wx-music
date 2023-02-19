@@ -54,3 +54,19 @@
 .icon-fenxiang:before {
   content: "\e608";
 }
+
+.icon-shoucang:before {
+  content: "\e60f";
+}
+
+.icon-ziyuanldpi:before {
+  content: "\e61c";
+}
+
+.icon-weibiaoti:before {
+  content: "\e627";
+}
+
+.icon-xiangyou:before {
+  content: "\e65c";
+}
