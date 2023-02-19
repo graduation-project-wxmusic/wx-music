@@ -8,7 +8,7 @@
     </view>
   </view>
   <view class="blog-content">
-    <text>{{blog.content}}</text>
+    <text user-select>{{blog.content}}</text>
   </view>
   <view class="blog-img">
     <block wx:for="{{blog.img}}" wx:key="index">
