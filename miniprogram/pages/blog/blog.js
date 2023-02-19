@@ -16,6 +16,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    // console.log(options.scene) // 这里可以统计谁的小程序码被扫了
     this._loadBlogList()
   },
 
