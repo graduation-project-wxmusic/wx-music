@@ -106,8 +106,8 @@ Page({
     wx.cloud.callFunction({
       name: 'music',
       data: {
+        type: 'getMusicUrl',
         musicId,
-        $url: 'musicUrl',
       }
     }).then((res) => {
       wx.hideLoading()
@@ -129,8 +129,8 @@ Page({
     wx.cloud.callFunction({
       name: 'music',
       data: {
+        type: 'getMusicLyric',
         musicId,
-        $url: 'lyric',
       }
     }).then((res) => {
       let lyric = '暂无歌词'

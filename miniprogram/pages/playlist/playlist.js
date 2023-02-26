@@ -9,15 +9,12 @@ Page({
    */
   data: {
     swiperImgUrls: [{
-        url: 'http://p1.music.126.net/oeH9rlBAj3UNkhOmfog8Hw==/109951164169407335.jpg',
-      },
-      {
-        url: 'http://p1.music.126.net/xhWAaHI-SIYP8ZMzL9NOqg==/109951164167032995.jpg',
-      },
-      {
-        url: 'http://p1.music.126.net/Yo-FjrJTQ9clkDkuUCTtUg==/109951164169441928.jpg',
-      }
-    ],
+      url: 'http://p1.music.126.net/oeH9rlBAj3UNkhOmfog8Hw==/109951164169407335.jpg',
+    }, {
+      url: 'http://p1.music.126.net/xhWAaHI-SIYP8ZMzL9NOqg==/109951164167032995.jpg',
+    }, {
+      url: 'http://p1.music.126.net/Yo-FjrJTQ9clkDkuUCTtUg==/109951164169441928.jpg',
+    }],
     playlist: []
   },
 
@@ -87,16 +84,17 @@ Page({
     wx.cloud.callFunction({
       name: 'music',
       data: {
+        type: 'getPlayList',
         start: this.data.playlist.length,
         count: MAX_LIMIT,
-        $url: 'playlist',
       }
     }).then((res) => {
       this.setData({
         playlist: this.data.playlist.concat(res.result.data)
       })
-      wx.stopPullDownRefresh()
+    }).finally(() => {
       wx.hideLoading()
+      wx.stopPullDownRefresh()
     })
   },
 })

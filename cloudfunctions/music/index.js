@@ -1,41 +1,17 @@
-// 云函数入口文件
-const cloud = require('wx-server-sdk')
-cloud.init()
+const getPlayList = require('./getPlayList/index')  // 获取云数据库中的歌单列表
+const getMusicList = require('./getMusicList/index')  // 获取接口中歌单的歌曲列表
+const getMusicUrl = require('./getMusicUrl/index')  // 获取接口中歌曲的URL
+const getMusicLyric = require('./getMusicLyric/index')  // 获取接口中歌曲的歌词
 
-const TcbRouter = require('tcb-router')
-const axios = require('axios')
-const BASE_URL = 'http://43.140.248.221:3000'
-
-// 云函数入口函数
 exports.main = async (event, context) => {
-  const app = new TcbRouter({
-    event
-  })
-
-  app.router('playlist', async (ctx, next) => {
-    ctx.body = await cloud.database().collection('playlist')
-      .skip(event.start)
-      .limit(event.count)
-      .get()
-      .then((res) => {
-        return res
-      })
-  })
-
-  app.router('musiclist', async (ctx, next) => {
-    const res = await axios.get(`${BASE_URL}/playlist/detail?id=${event.playlistId}`)
-    ctx.body = res.data
-  })
-
-  app.router('musicUrl', async(ctx, next) => {
-    const res = await axios.get(`${BASE_URL}/song/url/v1?id=${event.musicId}&level=standard`)
-    ctx.body = res.data
-  })
-
-  app.router('lyric', async(ctx, next) => {
-    const res = await axios.get(`${BASE_URL}/lyric?id=${event.musicId}`)
-    ctx.body = res.data
-  })
-
-  return app.serve()
+  switch (event.type) {
+    case 'getPlayList':
+      return await getPlayList.main(event, context)
+    case 'getMusicList':
+      return await getMusicList.main(event, context)
+    case 'getMusicUrl':
+      return await getMusicUrl.main(event, context)
+    case 'getMusicLyric':
+      return await getMusicLyric.main(event, context)
+  }
 }

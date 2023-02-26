@@ -84,8 +84,8 @@ Page({
     wx.cloud.callFunction({
       name: 'blog',
       data: {
+        type: 'getCommentList',
         blogId: this.data.blogId,
-        $url: 'detail',
       }
     }).then((res) => {
       const blog = res.result.list[0]

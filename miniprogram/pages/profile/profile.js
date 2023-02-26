@@ -76,6 +76,7 @@ Page({
         urls: [fileId],
         current: fileId
       })
+    }).finally(() => {
       wx.hideLoading()
     })
   },

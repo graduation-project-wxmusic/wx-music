@@ -1,48 +1,11 @@
-// 云函数入口文件
-const cloud = require('wx-server-sdk')
-cloud.init()
+const getBlogList = require('./getBlogList/index')  // 获取云数据库中的博客列表
+const getCommentList = require('./getCommentList/index')  // 获取云数据库中的博客评论列表
 
-const TcbRouter = require('tcb-router')
-const db = cloud.database()
-
-const blogCollection = db.collection('blog')
-
-// 云函数入口函数
 exports.main = async (event, context) => {
-  const app = new TcbRouter({
-    event
-  })
-
-  app.router('list', async (ctx, next) => {
-    const keyword = event.keyword
-    let w = {}
-    if (keyword && keyword.trim() != '') {
-      w = {
-        content: new db.RegExp({
-          regexp: keyword,
-          options: 'i'
-        })
-      }
-    }
-    let blogList = await blogCollection.where(w).skip(event.start).limit(event.count)
-      .orderBy('createTime', 'desc').get().then((res) => {
-        return res.data
-      })
-    ctx.body = blogList
-  })
-
-  app.router('detail', async (ctx, next) => {
-    let blogId = event.blogId
-    const blog = await blogCollection.aggregate().match({
-      _id: blogId
-    }).lookup({
-      from: 'blog-comment',
-      localField: '_id',
-      foreignField: 'blogId',
-      as: 'commentList'
-    }).end()
-    ctx.body = blog
-  })
-
-  return app.serve()
+  switch (event.type) {
+    case 'getBlogList':
+      return await getBlogList.main(event, context)
+    case 'getCommentList':
+      return await getCommentList.main(event, context)
+  }
 }

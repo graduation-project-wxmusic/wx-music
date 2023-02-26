@@ -119,14 +119,14 @@ Page({
     wx.cloud.callFunction({
       name: 'blog',
       data: {
+        type: 'getBlogList',
         start,
         count: 10,
         keyword,
-        $url: 'list',
       }
     }).then((res) => {
       this.setData({
-        blogList: this.data.blogList.concat(res.result)
+        blogList: this.data.blogList.concat(res.result.data)
       })
     }).finally(() => {
       wx.hideLoading()

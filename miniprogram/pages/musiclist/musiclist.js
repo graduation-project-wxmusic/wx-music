@@ -19,8 +19,8 @@ Page({
     wx.cloud.callFunction({
       name: 'music',
       data: {
+        type: 'getMusicList',
         playlistId: options.playlistId,
-        $url: 'musiclist'
       }
     }).then((res) => {
       const pl = res.result.playlist
@@ -32,9 +32,10 @@ Page({
         }
       })
       this._setMusiclist()
-      wx.hideLoading()
     }).catch((err) => {
       console.log(err);
+    }).finally(() => {
+      wx.hideLoading()
     })
   },
 
