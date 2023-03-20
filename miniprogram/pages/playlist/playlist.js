@@ -24,8 +24,6 @@ Page({
   onLoad(options) {
     this._getPlaylist()
     this._getSwiper()
-    this._getSwiper()
-    this._getSwiper()
   },
 
   /**
@@ -65,8 +63,6 @@ Page({
     })
     this._getPlaylist()
     this._getSwiper()
-    this._getSwiper()
-    this._getSwiper()
   },
 
   /**
@@ -101,24 +97,6 @@ Page({
     }).finally(() => {
       wx.hideLoading()
       wx.stopPullDownRefresh()
-    })
-  },
-
-  _getSwiper() {
-    db.collection('swiper').get().then((res) => {
-      console.log('res', res);
-      this.setData({
-        swiperImgUrls: res.data
-      })
-    })
-  },
-
-  _getSwiper() {
-    db.collection('swiper').get().then((res) => {
-      console.log('res', res);
-      this.setData({
-        swiperImgUrls: res.data
-      })
     })
   },
 
