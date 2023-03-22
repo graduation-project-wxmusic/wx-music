@@ -2,6 +2,7 @@
 
 const MAX_LIMIT = 10
 const db = wx.cloud.database()
+const app = getApp()
 
 Page({
 
@@ -76,16 +77,25 @@ Page({
     wx.showLoading({
       title: '加载中',
     })
-    db.collection('blog').skip(this.data.blogList.length).limit(MAX_LIMIT).orderBy('createTime', 'desc').get().then((res) => {
-      let _bloglist = res.data
-      for (let i = 0, len = _bloglist.length; i < len; i++) {
-        _bloglist[i].createTime = _bloglist[i].createTime.toString()
-      }
-      this.setData({
-        blogList: this.data.blogList.concat(_bloglist)
+    const { openid } = app.globalData
+    db.collection('blog')
+      .skip(this.data.blogList.length)
+      .limit(MAX_LIMIT)
+      .where({
+        _openid: openid,
       })
-      wx.hideLoading()
-    })
+      .orderBy('createTime', 'desc')
+      .get()
+      .then((res) => {
+        let _bloglist = res.data
+        for (let i = 0, len = _bloglist.length; i < len; i++) {
+          _bloglist[i].createTime = _bloglist[i].createTime.toString()
+        }
+        this.setData({
+          blogList: this.data.blogList.concat(_bloglist)
+        })
+        wx.hideLoading()
+      })
   },
 
   goComment(event) {
