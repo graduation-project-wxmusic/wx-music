@@ -18,6 +18,4 @@
       </view>
     </block>
   </view>
-  <!-- 底部弹出层 -->
-  <x-login modalShow="{{modalShow}}" bind:loginsuccess="onLoginSuccess" bind:loginfail="onLoginFail" />
 </view>

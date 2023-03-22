@@ -19,7 +19,6 @@ Component({
    * 组件的初始数据
    */
   data: {
-    loginShow: false,
     modalShow: false,
     content: '',
   },
@@ -39,25 +38,6 @@ Component({
       }
       this.setData({
         modalShow: true,
-      })
-    },
-
-    onLoginsuccess(event) {
-      userInfo = event.detail
-      // 授权框消失，评论框显示
-      this.setData({
-        loginShow: false,
-      }, () => {
-        this.setData({
-          modalShow: true,
-        })
-      })
-    },
-
-    onLoginfail() {
-      wx.showModal({
-        title: '授权用户才能进行评价',
-        content: '',
       })
     },
 

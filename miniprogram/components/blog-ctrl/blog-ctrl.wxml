@@ -12,8 +12,6 @@
 	</view>
 </view>
 
-<x-login modalShow="{{loginShow}}" bind:loginsuccess="onLoginsuccess" bind:loginfail="onLoginfail" />
-
 <x-bottom-modal modalShow="{{modalShow}}">
 	<view slot="modal-content">
 		<textarea bindinput="onInput" name="content" class="comment-content" placeholder="写评论" value="{{content}}" fixed="true"></textarea>
