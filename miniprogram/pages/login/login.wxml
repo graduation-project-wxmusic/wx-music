@@ -1,0 +1,7 @@
+<view class="container">
+  <button class="avatar-wrapper" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
+    <image class="avatar" src="{{avatarUrl}}"></image>
+  </button>
+  <input type="nickname" class="nickname" placeholder="请输入昵称" model:value="{{nickName}}" />
+  <button class="confirm" bind:tap="onConfirm">确定</button>
+</view>

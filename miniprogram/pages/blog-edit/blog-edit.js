@@ -1,6 +1,7 @@
 // pages/blog-edit/blog-edit.js
 
 const db = wx.cloud.database()
+const app = getApp()
 
 const MAX_WORDS_NUM = 140
 const MAX_IMG_NUM = 9
@@ -23,7 +24,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    userInfo = options
+
   },
 
   /**
@@ -37,7 +38,14 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-
+    const {
+      avatarUrl,
+      nickName
+    } = app.getUserInfo()
+    userInfo = {
+      avatarUrl,
+      nickName,
+    }
   },
 
   /**

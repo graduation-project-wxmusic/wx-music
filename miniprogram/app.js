@@ -17,8 +17,10 @@ App({
 
     this.getOpenid()
     this.globalData = {
-      playingMusicId: -1,
-      openid: -1,
+      playingMusicId: -1, // 正在播放的歌曲的ID
+      openid: -1, // 用户openid
+      avatarUrl: '', // 用户头像
+      nickName: '', // 用户昵称
     };
   },
 
@@ -28,6 +30,32 @@ App({
 
   getPlayMusicId() {
     return this.globalData.playingMusicId
+  },
+
+  setUserInfo(openid) {
+    wx.cloud.database().collection('user').where({
+      _openid: openid,
+    })
+      .get()
+      .then((res) => {
+        const {
+          data
+        } = res
+        if (data.length) {
+          this.globalData.avatarUrl = data[0].avatarUrl
+          this.globalData.nickName = data[0].nickName
+        }
+      })
+  },
+
+  getUserInfo() {
+    const { avatarUrl, nickName } = this.globalData
+    if (!nickName) {
+      wx.navigateTo({
+        url: '../login/login',
+      })
+    }
+    return { avatarUrl, nickName }
   },
 
   getOpenid() {
@@ -42,6 +70,7 @@ App({
       if (wx.getStorageSync(openid) == '') {
         wx.setStorageSync(openid, [])
       }
+      this.setUserInfo(openid)
     })
   },
 

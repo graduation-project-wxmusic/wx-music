@@ -1,9 +1,9 @@
 <!--pages/profile/profile.wxml-->
 <view class="profile-header">
-  <view class="avatar-url">
-    <open-data type="userAvatarUrl"></open-data>
+  <view class="avatar-wrapper">
+    <image class="avatar" src="{{avatarUrl}}"></image>
   </view>
-  <open-data type="userNickName" class="nickname"></open-data>
+  <span class="nickname">{{nickName}}</span>
 </view>
 
 <view class="nav">

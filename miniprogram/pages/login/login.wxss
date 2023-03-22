@@ -1,0 +1,28 @@
+.avatar-wrapper {
+  padding: 0;
+  width: 56px !important;
+  border-radius: 8px;
+  margin-top: 40px;
+}
+
+.avatar {
+  display: block;
+  width: 56px;
+  height: 56px;
+}
+
+.nickname {
+  margin: 20px;
+}
+
+.confirm {
+  background: #d43c33;
+  color: #fff;
+  font-size: 24rpx;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

@@ -2,6 +2,7 @@
 
 let userInfo = {}
 const db = wx.cloud.database()
+const app = getApp()
 
 Component({
   /**
@@ -28,25 +29,16 @@ Component({
    */
   methods: {
     onComment() {
-      // 判断用户是否授权
-      wx.getSetting({
-        success: (res) => {
-          if (res.authSetting['scope.userInfo']) {
-            wx.getUserInfo({
-              success: (res) => {
-                userInfo = res.userInfo
-                // 显示评论弹出层
-                this.setData({
-                  modalShow: true,
-                })
-              }
-            })
-          } else {
-            this.setData({
-              loginShow: true,
-            })
-          }
-        }
+      const {
+        avatarUrl,
+        nickName
+      } = app.getUserInfo()
+      userInfo = {
+        avatarUrl,
+        nickName,
+      }
+      this.setData({
+        modalShow: true,
       })
     },
 
@@ -78,7 +70,6 @@ Component({
     onSend() {
       // 插入数据库
       let content = this.data.content
-      console.log(content);
       if (content.trim() == '') {
         wx.showModal({
           title: '评论内容不能为空',

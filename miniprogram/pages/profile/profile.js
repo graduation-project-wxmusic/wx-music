@@ -1,11 +1,15 @@
 // pages/profile/profile.js
+
+const app = getApp()
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    avatarUrl: '',
+    nickName: '',
   },
 
   /**
@@ -26,7 +30,14 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-
+    const {
+      avatarUrl,
+      nickName
+    } = app.getUserInfo()
+    this.setData({
+      avatarUrl,
+      nickName,
+    })
   },
 
   /**
