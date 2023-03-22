@@ -1,5 +1,7 @@
 // components/blog-ctrl/blog-ctrl.js
 
+import saveLog from '../../utils/saveLog'
+
 let userInfo = {}
 const db = wx.cloud.database()
 const app = getApp()
@@ -88,6 +90,8 @@ Component({
         })
         // 父元素刷新评论页面
         this.triggerEvent('refreshCommentList')
+        // 保存日志
+        saveLog(res._id, 'ADD_BLOG_COMMENT')
       }).finally(() => {
         wx.hideLoading()
       })

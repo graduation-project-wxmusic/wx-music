@@ -1,5 +1,7 @@
 // pages/blog-edit/blog-edit.js
 
+import saveLog from '../../utils/saveLog'
+
 const db = wx.cloud.database()
 const app = getApp()
 
@@ -201,6 +203,8 @@ Page({
         const pages = getCurrentPages()
         const prevPage = pages[pages.length - 2]
         prevPage.onPullDownRefresh()
+        // 保存日志
+        saveLog(res._id, 'ADD_BLOG')
       })
     }).catch((err) => {
       wx.showToast({

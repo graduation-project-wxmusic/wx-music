@@ -1,4 +1,7 @@
 // pages/musiclist/musiclist.js
+
+import saveLog from '../../utils/saveLog'
+
 Page({
 
   /**
@@ -32,6 +35,8 @@ Page({
         }
       })
       this._setMusiclist()
+      // 保存日志
+      saveLog(options.playlistId, 'GET_PLAYLIST_DETAIL')
     }).catch((err) => {
       console.log(err);
     }).finally(() => {

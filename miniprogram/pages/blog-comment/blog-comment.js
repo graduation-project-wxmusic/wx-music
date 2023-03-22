@@ -1,6 +1,7 @@
 // pages/blog-comment/blog-comment.js
 
 import formatTime from '../../utils/formatTime.js'
+import saveLog from '../../utils/saveLog'
 
 Page({
 
@@ -81,11 +82,12 @@ Page({
       title: '加载中',
       mask: true,
     })
+    const { blogId } = this.data
     wx.cloud.callFunction({
       name: 'blog',
       data: {
         type: 'getCommentList',
-        blogId: this.data.blogId,
+        blogId,
       }
     }).then((res) => {
       const blog = res.result.list[0]
@@ -97,6 +99,8 @@ Page({
         commentList,
         blog,
       })
+      // 保存日志
+      saveLog(blogId, 'GET_BLOG_DETAIL')
     }).finally(() => {
       wx.hideLoading()
     })

@@ -1,5 +1,7 @@
 // pages/player/player.js
 
+import saveLog from '../../utils/saveLog'
+
 let musiclist = []
 let nowPlayingIndex = 0
 // 微信小程序全局唯一的背景音乐管理器
@@ -142,6 +144,8 @@ Page({
         lyric
       })
     })
+    // 保存日志
+    saveLog(musicId, 'GET_MUSIC_DETAIL')
   },
 
   togglePlaying() {
