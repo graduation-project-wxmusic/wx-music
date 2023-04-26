@@ -35,8 +35,9 @@ Page({
         }
       })
       this._setMusiclist()
+      const { playlistId, tagId } = options
       // 保存日志
-      saveLog(options.playlistId, 'GET_PLAYLIST_DETAIL')
+      saveLog(playlistId, 'GET_PLAYLIST_DETAIL', { tagId })
     }).catch((err) => {
       console.log(err);
     }).finally(() => {

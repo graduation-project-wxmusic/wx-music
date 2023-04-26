@@ -30,19 +30,24 @@ exports.main = async (event, context) => {
     })
   }
 
-  const { status, statusText, data } = await axios.get(URL + tagId++)
+  const { status, statusText, data } = await axios.get(URL + tagId)
   if (status !== 200) {
     console.log(statusText)
     return
   }
   const { playlist, page } = data.data
+  // 为每个歌单加上曲风字段
+  playlist.forEach(element => {
+    element.tagId = tagId
+  })
+  tagId++
   const newData = deduplication(playlist, list.data)
 
   if (newData.length) {
     await playlistCollection.add({
       data: [...newData]
     }).then((res) => {
-      console.log('插入成功', res)
+      console.log('插入成功, 插入曲风id: ', tagId - 1,  res)
     }).then((err) => {
       console.log('插入失败', err)
     })

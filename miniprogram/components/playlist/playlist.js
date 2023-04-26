@@ -32,8 +32,9 @@ Component({
    */
   methods: {
     goToMusiclist() {
+      const { id, tagId } = this.properties.playlist
       wx.navigateTo({
-        url: `../../pages/musiclist/musiclist?playlistId=${this.properties.playlist.id}`,
+        url: `../../pages/musiclist/musiclist?playlistId=${id}&tagId=${tagId}`,
       })
     },
     _tranNumber(num, point) {
